@@ -19,16 +19,8 @@ typedef struct noise_params_t {
   int len; /* The length of the beep */
 } noise_params_t;
 
-/*
-enum { 
-  LED_NUM = 1,
-  LED_CAPS = 2,
-  LED_SCROLL = 4
-};
-*/
-  
 typedef struct light_params_t {
-  int leds; /* Which leds does the light switch on? */
+  unsigned char leds; /* Which leds does the light switch on? */
   int len; /* What time does the light stay on ? (in ms) */
 } light_params_t;
 
@@ -69,6 +61,7 @@ void beep(noise_params_t b)
 unsigned char save_light_state()
 {
   unsigned char state;
+  /* TODO: It doesn't get the real state, why ? */
   if (ioctl(fd, KDGETLED, &state) == -1) {
     fprintf(stderr, "Error while getting leds state");
     perror("ioctl");
@@ -81,7 +74,7 @@ unsigned char save_light_state()
 void set_light_state(unsigned char state)
 {
   if (ioctl(fd, KDSETLED, state) == -1) {
-    fprintf(stderr, "Error while setting light state");
+    fprintf(stderr, "Error while setting leds state");
     perror("ioctl");
     close(fd);
     exit(1);
@@ -101,11 +94,16 @@ void text(text_params_t t)
   printf("%s", t.text);
 }
 
-int sigint_handle(int signum) 
+void sigint_handle(int signum) 
 {
+  /* Deactivate the beep and the lights, and close the file
+   * descriptor */
   if (signum == SIGINT) {
-    close(fd);
-    /* TODO */
+    if (fd != -1) {
+      ioctl(fd, KDMKTONE, 0);
+      ioctl(fd, KDSETLED, 0);
+      close(fd);
+    }
     exit(SIGINT);
   }
 }
@@ -116,23 +114,25 @@ int main(int argc, char **argv) {
   light_params_t l;
   text_params_t t;
 
+  signal(SIGINT, sigint_handle);
+
   //parse_args(argc, argv, options);
 
   open_console();
   init_light_state = save_light_state();
 
   //play_metronome(options);
-  b.len = 50;
-  b.freq = 1193180/440;
+  b.len = 1000;
+  b.freq = 440;
   beep(b);
-
-  l.leds = LED_CAP | LED_SCR | LED_NUM;
-  l.len = 2000;
-  light(l);
 
   t.text = malloc(4*sizeof(char));
   strncpy(t.text, "TIC ", 4);
   text(t);
+
+  l.leds = LED_CAP | LED_SCR | LED_NUM;
+  l.len = 1000;
+  light(l);
 
   set_light_state(init_light_state);
 
