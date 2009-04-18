@@ -30,15 +30,6 @@ typedef struct text_params_t {
   char *text; /* Le texte à afficher */
 } text_params_t ;
 
-typedef struct options_t {
-  int noise; /* Does the metronome make moise ? (PC beep) */
-  int light; /* Does the metrenome make light ? (keyboard LEDS) */
-  int bpm; /* Beats per minute */
-  noise_params_t noise_p; /* What does the beep looks like ? */
-  light_params_t light_p; /* What does the lights looks like ? */ 
-  text_params_t text_p; /* What does the text looks like ? */
-} options_t ;
-
 void open_console(void);
 void beep(noise_params_t b);
 unsigned char save_light_state();
