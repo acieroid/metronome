@@ -6,6 +6,11 @@
 #include "tics.h"
 #include "metronome.h"
 
+#define NOISE_FREQ_DEFAULT 440
+#define LEDS_DEFAULT 1
+#define TEXT_DEFAULT "TIC"
+#define BPM_DEFAULT 120
+
 /* With that, we can restore the initial state of the keyboards
  * led */
 unsigned char init_light_state;
@@ -16,6 +21,14 @@ typedef struct options_t {
   int bpm; /* Beats per minute */
 } options_t ;
 
+static void usage(char *progname) 
+{
+	printf("%s [OPTIONS]\n", progname);
+	printf("\t-n[freq], --noise=[freq]\tMake noise. The frequence can be precised (%d if not)\n", NOISE_FREQ_DEFAULT);
+	printf("\t-l[leds], --leds=[leds] \tLight leds. The leds can be precised (see `man %s') (%d by default)\n", progname, LEDS_DEFAULT);
+	printf("\t-t[text], --text=[text] \tOutput text. The text can be precised (%s by default)\n", TEXT_DEFAULT);
+	printf("\t-b[speed], --bpm=[speed]\tThe beats per minute (%d by default)\n", BPM_DEFAULT);
+}
 
 void sigint_handle(int signum) 
 {
@@ -66,15 +79,11 @@ void parse_args(int argc, char **argv)
 				printf("The bpm is %s\n", optarg);
 				break;
 			default:
-				/*usage();*/
+				usage(argv[0]);
 				break;
 		}
 	}
 }
-
-
-
-
 
 int main(int argc, char **argv) {
   beat_t b;
