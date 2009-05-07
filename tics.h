@@ -7,6 +7,7 @@
 #include <linux/kd.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <unistd.h>
 
 #define CONSOLE_FILE "/dev/console"
 

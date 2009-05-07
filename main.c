@@ -1,8 +1,10 @@
 #include <signal.h>
+#include <unistd.h>
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <getopt.h>
+
 #include "tics.h"
 #include "metronome.h"
 
@@ -46,7 +48,7 @@ void sigint_handle(int signum)
 
 void parse_args(int argc, char **argv)
 {
-	int opt, *optindex;
+	int opt;
 	/* TODO: pouvoir différencier des beats, ne pas se limiter au 4/4 */
 	static struct option opts[] = {
 		/* Le beep, paramètre opt. : la fréquence */
@@ -86,8 +88,9 @@ void parse_args(int argc, char **argv)
 }
 
 int main(int argc, char **argv) {
-  beat_t b;
+  /*beat_t b;
   bar_t bar;
+  */
 
   signal(SIGINT, sigint_handle);
 

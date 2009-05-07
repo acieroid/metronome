@@ -18,6 +18,7 @@ beat_t make_beat(int len, int noise_freq,
   b.noise = n;
   b.light = l;
   b.text = t;
+  b.len = len;
 
   return b;
 }
