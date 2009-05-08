@@ -37,7 +37,7 @@ void play_bar(int bpm, bar_t bar)
   for (i = 0; i < bar.n_beats; i++) {
     play_beat(bar.beats[i]);
     /* little imprecision here, because of the leds lights (they sleep a bit) */
-    usleep(60*10e6/bpm);
+    usleep(6e7/bpm);
   }
 }
 
