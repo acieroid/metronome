@@ -18,16 +18,17 @@ beat_t make_beat(int len, int noise_freq,
   b.noise = n;
   b.light = l;
   b.text = t;
-  b.len = len;
 
   return b;
 }
 
 void play_beat(beat_t beat)
 {
-  beep(beat.noise);
+	if (beat.noise.len != 0) 
+		beep(beat.noise);
   text(beat.text);
-  light(beat.light);
+	if (beat.light.len != 0)
+		light(beat.light);
 }
   
 void play_bar(int bpm, bar_t bar)
@@ -35,7 +36,13 @@ void play_bar(int bpm, bar_t bar)
   int i;
   for (i = 0; i < bar.n_beats; i++) {
     play_beat(bar.beats[i]);
-    /* TODO little imprecision here */
-    usleep(500*1000);
+    /* little imprecision here, because of the leds lights (they usleep a bit) */
+    usleep((int)60000000./bpm);
   }
 }
+
+beat_t void_beat(void) {
+  return make_beat(0, NOISE_FREQ_DEFAULT, 0, "");
+	
+}
+
