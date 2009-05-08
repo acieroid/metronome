@@ -1,0 +1,48 @@
+.TH metronome 1 "May 8, 2009" "version 0.1" "USER COMMANDS"
+.SH NAME
+metronome \- a simple metronome that doesn't need any soundcard
+.SH SYNOPSIS
+.B metronome [OPTION]
+.SH DESCRIPTION
+This metronome use the motherboard tone as auditive beeps, and the
+keyboard leds and the standard output as visual beeps. You can 
+specify the speed of the metronome in beats per minute.
+
+You could have errors about /dev/console, because the program must
+have write access to this file. So, you should probably launch the
+program as the root user.
+.SH OPTIONS
+.TP
+.B --noise, --noise=<freq>, -n, -n<freq>
+Use the motherboard tone, you could specify the frequence of the 
+tone
+.TP
+.B --leds, --leds=<leds>, -l, -l<leds>
+Use the leds as visual beep. <leds> is a optional number that 
+specifies which led metronome have to light, it's as simple `or' 
+with values
+.B LED_* 
+specified in
+.B /usr/src/`uname -r`/include/linux/kd.h \
+.
+.TP
+.B --text, --text=<text>, -t, -t<text>
+Output text in the standard output as visual beep. You can specify
+the text you want. 
+.TP
+.B --bpm=<bpm>, -b<bpm>
+The beats per minutes. It must be greater than 0.
+
+.SH EXAMPLES
+Launch the metronome at 105 beats per minute, with the noise at a
+frequence of 510Hz and the led output:
+
+.B metronome -b105 -n510 -l
+.SH EXIT STATUS
+metronome returns 1 in case of error. Otherwise, you have to quit
+it by yourself, by sending a SIGINT signal (like pressing
+control-c in the terminal).
+.SH AUTHOR
+Written by Quentin Stievenart (contact at quentin.stievenart (at)
+gmail.com).
+
