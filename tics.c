@@ -14,7 +14,7 @@ void beep(noise_params_t b)
 {
   /* Why 1193180 ? Good question, it just works with that number */
   if (ioctl(fd, KDMKTONE, (b.len << 16) + 1193180/b.freq) == -1) {
-    fprintf(stderr, "Error while setting tone state");
+    fprintf(stderr, "Error while setting tone state\n");
     perror("ioctl");
     close(fd);
     exit(1);
@@ -26,7 +26,7 @@ unsigned char save_light_state()
   unsigned char state;
   /* TODO: It doesn't get the real state, why ? */
   if (ioctl(fd, KDGETLED, &state) == -1) {
-    fprintf(stderr, "Error while getting leds state");
+    fprintf(stderr, "Error while getting leds state\n");
     perror("ioctl");
     close(fd);
     exit(1);
@@ -37,7 +37,7 @@ unsigned char save_light_state()
 void set_light_state(unsigned char state)
 {
   if (ioctl(fd, KDSETLED, state) == -1) {
-    fprintf(stderr, "Error while setting leds state");
+    fprintf(stderr, "Error while setting leds state\n");
     perror("ioctl");
     close(fd);
     exit(1);
