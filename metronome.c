@@ -36,13 +36,12 @@ void play_bar(int bpm, bar_t bar)
   int i;
   for (i = 0; i < bar.n_beats; i++) {
     play_beat(bar.beats[i]);
-    /* little imprecision here, because of the leds lights (they usleep a bit) */
-    usleep((int)60000000./bpm);
+    /* little imprecision here, because of the leds lights (they sleep a bit) */
+    usleep(60*10e6/bpm);
   }
 }
 
 beat_t void_beat(void) {
   return make_beat(0, NOISE_FREQ_DEFAULT, 0, "");
-	
 }
 

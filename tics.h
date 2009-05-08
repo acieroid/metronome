@@ -9,6 +9,8 @@
 #include <stdio.h>
 #include <unistd.h>
 
+int usleep(__useconds_t usec); /* To avoid warnings */
+
 #define CONSOLE_FILE "/dev/console"
 
 /* We have to use a global variable for the SIGINT signal (if we

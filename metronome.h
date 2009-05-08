@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <sys/types.h>
 #include <string.h>
 #include "tics.h" 
 
@@ -12,6 +13,8 @@
 #define LEDS_DEFAULT LED_CAP|LED_SCR|LED_NUM 
 #define TEXT_DEFAULT "TIC "
 #define BPM_DEFAULT 120
+
+int usleep(__useconds_t usec); /* To avoid warnings */
 
 /* Each beat have specifics options, so we can distinguish beats 
  * if we want */

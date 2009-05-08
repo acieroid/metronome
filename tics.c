@@ -47,7 +47,7 @@ void set_light_state(unsigned char state)
 void light(light_params_t l)
 {
   set_light_state(l.leds);
-  usleep(l.len*1000);
+	usleep(l.len*1000);
   set_light_state(0);
 }
 
