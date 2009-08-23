@@ -1,0 +1,13 @@
+`metronome' allows you to have a metronome without having a soundcard or
+speakers, it can use the motherboard beep, the leds or simply output text
+to the terminal to signal beats.
+
+To install it, just run:
+  $ make
+  # make install
+
+You'll probably need to launch metronome in root to control the leds and the
+motherboard tone (contributions are welcome if anyone knows how to avoid that).
+
+See metronome(1) (man metronome) for more informations
+
