@@ -53,11 +53,11 @@ beat_t make_beat(int len, int noise_freq,
 
 void play_beat(beat_t beat)
 {
-	if (beat.noise.len != 0) 
-		beep(beat.noise);
+  if (beat.noise.len != 0) 
+    beep(beat.noise);
   text(beat.text);
-	if (beat.light.len != 0)
-		light(beat.light);
+  if (beat.light.len != 0)
+    light(beat.light);
 }
   
 void play_bar(int bpm, bar_t bar)
